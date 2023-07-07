@@ -4,7 +4,7 @@
     <p v-if="username">Bienvenido, {{ username }}</p>
     <button v-if="!accessToken" @click="login">Login</button>
     <button v-if="accessToken" @click="logout">Logout</button>
-    <button v-if="accessToken" @click="getTopTracks">Get Top Tracks</button>
+    <button v-if="accessToken" @click="getTopTracks()">Get Top Tracks</button>
   </div>
 </template>
   
@@ -30,11 +30,14 @@ export default {
     },
     getTopTracks() {
       axios
-        .get("http://localhost:8080/top-tracks", {
+        .get("http://localhost:8080/audio-features", {
           headers: { Authorization: "Bearer " + this.accessToken },
         })
         .then((response) => {
           console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
 
@@ -47,6 +50,9 @@ export default {
           this.accessToken = response.data.access_token;
           localStorage.setItem("accessToken", response.data.access_token);
           this.getUserInfo(response.data.access_token);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
     getUserInfo(accessToken) {
@@ -56,6 +62,9 @@ export default {
         })
         .then((response) => {
           this.username = response.data.display_name; // Almacena el nombre de usuario
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
   },
