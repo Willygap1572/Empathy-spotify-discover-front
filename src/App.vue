@@ -1,39 +1,26 @@
 <template>
-  <div>
-    <h1>List of Elements</h1>
-    <ul>
-      <li v-for="element in elements" :key="element.id">
-        {{ element }}
-      </li>
-    </ul>
+  <div id="app">
+    <HomePage/>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
+import HomePage from './components/HomePage.vue';
 export default {
-  data() {
-    return {
-      elements: []
-    };
+  components: {
+    HomePage
   },
-  mounted() {
-    this.fetchElements();
-  },
-  methods: {
-    fetchElements() {
-      axios.get('http://localhost:8080/searchDocument')
-        .then(response => {
-          this.elements = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-  }
+  name: 'App'
 };
 </script>
 
 <style>
+#app {
+  text-align: center;
+  padding: 20px;
+}
+
+.router-link-exact-active {
+  font-weight: bold;
+}
 </style>
