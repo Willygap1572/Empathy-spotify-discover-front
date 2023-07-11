@@ -13,6 +13,7 @@
     <div class="welcome__photo" id="welcome-photo">
       <ProfilePhoto v-if="userphoto" :userphoto="userphoto" />
     </div>
+    <RadarChart></RadarChart>
     <ButtonComponent v-if="accessToken" :clickFunction="getRecommendedTracks">
       Get Recommendation
     </ButtonComponent>
@@ -24,6 +25,7 @@ import axios from "axios";
 import ButtonComponent from "./Button.vue";
 import ProfilePhoto from "./ProfilePhoto.vue";
 import router from "../router/router.js";
+import RadarChart from "./Radar/RadarChart.vue";
 
 export default {
   name: "HomePage",
@@ -140,6 +142,7 @@ export default {
   components: {
     ButtonComponent,
     ProfilePhoto,
+    RadarChart,
   },
 };
 </script>
