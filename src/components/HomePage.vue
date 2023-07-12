@@ -13,7 +13,7 @@
     <div class="welcome__photo" id="welcome-photo">
       <ProfilePhoto v-if="userphoto" :userphoto="userphoto" />
     </div>
-    <RadarChart></RadarChart>
+    <RadarChart v-if="accessToken && features" :features="features"></RadarChart>
     <ButtonComponent v-if="accessToken" :clickFunction="getRecommendedTracks">
       Get Recommendation
     </ButtonComponent>
@@ -29,6 +29,21 @@ import RadarChart from "./Radar/RadarChart.vue";
 
 export default {
   name: "HomePage",
+  data() {
+    return {
+      features: null,
+    };
+  },
+  watch: {
+    accessToken: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal) {
+          this.fetchChartData();
+        }
+      },
+    },
+  },
   computed: {
     username: {
       get() {
@@ -67,6 +82,30 @@ export default {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("username");
       localStorage.removeItem("userphoto");
+    },
+
+    fetchChartData() {
+      axios
+        .get("http://localhost:8080/likelihood", {
+          headers: { Authorization: "Bearer " + this.accessToken },
+        })
+        .then((response) => {
+          delete response.data.explicit;
+          delete response.data.column1;
+          delete response.data.popularity;
+          delete response.data.mode;
+          delete response.data.key;
+          delete response.data.id;
+          delete response.data.duration_ms;
+          delete response.data.tempo;
+          delete response.data.valence;
+          delete response.data.loudness;
+          this.features = response.data;
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     getRecommendedTracks() {
       axios
@@ -107,20 +146,6 @@ export default {
           this.$store.dispatch("setUserphoto", response.data.images[1].url);
           this.username = response.data.display_name;
           this.userphoto = response.data.images[1].url;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    getLikelyhood(accessToken) {
-      axios
-        .get("https:localhost:8080/likelyhood", {
-          headers: { Authorization: "Bearer " + accessToken },
-        })
-        .then((response) => {
-          this.username = response.data.display_name;
-          this.userphoto = response.data.images[1].url;
-          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
