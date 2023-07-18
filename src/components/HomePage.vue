@@ -244,7 +244,7 @@ h1 {
     height: 250px;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     width: 200px;
     height: 200px;
   }
@@ -263,7 +263,7 @@ h1 {
     width: 300px;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     height: 200px;
     width: 200px;
   }
@@ -286,7 +286,9 @@ h1 {
   width: 100%;
   background-color: var(--background-color-2);
 
-  @media screen and (max-width: 768px) {
+  
+
+  @media screen and (max-width: 425px) {
     width: auto;
   }
     
@@ -304,13 +306,18 @@ h1 {
   position: absolute;
 
   @media screen and (max-width: 768px) {
-    top: 2.2rem;
+    top: 1.8rem;
     right: 1rem;
   }
 
   @media screen and (max-width: 480px) {
     top: 0.5rem;
     right: 0.5rem;
+  }
+
+  @media screen and (max-width: 380px) {
+    top: 0.5rem;
+    right: 0.2rem;
   }
 }
 

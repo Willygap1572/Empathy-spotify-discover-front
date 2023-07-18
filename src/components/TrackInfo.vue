@@ -6,13 +6,13 @@
       <div class="track-info">
         <img :src="trackData.imageUrl" :alt="trackData.name" />
         <div class="info">
-          <a href="#" class="track__name shine__track__name">{{
+          <a :href="trackData.spotifyUrl" target="_blank" class="track__name shine__track__name">{{
             trackData.name
           }}</a>
           <br />
-          <a href="#" class="track__author">{{
+          <div class="track__author">{{
             trackData.artists.join(", ")
-          }}</a>
+          }}</div>
         </div>
       </div>
       <ButtonComponent class="remove__button" :clickFunction="removeTrack"
@@ -42,6 +42,8 @@ export default {
         name: "",
         artists: [],
         imageUrl: "",
+        spotifyUrl: "",
+        artistsUrl: [],
       },
     };
   },
@@ -58,7 +60,9 @@ export default {
             (artist) => artist.name
           );
           this.trackData.imageUrl = response.data.album.images[0].url;
+          this.trackData.spotifyUrl = response.data.external_urls.spotify;
           this.loading = false;
+
         })
         .catch((error) => {
           console.error(error);

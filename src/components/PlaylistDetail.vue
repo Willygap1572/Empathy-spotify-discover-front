@@ -1,12 +1,17 @@
 <template>
   <div class="playlistTracks">
-    <h1 class="shine">Recommended Tracks</h1>
-    <ButtonComponent class="unfollow" :clickFunction="unfollowPlaylist">
-      Unfollow Playlist
-    </ButtonComponent>
-    <ButtonComponent class="go__back" :clickFunction="goBack">
-      <i class="ri-arrow-left-line"></i>
-    </ButtonComponent>
+    <h1 class="shine">Playlist Tracks</h1>
+    <div class="go__back__container">
+      <ButtonComponent class="go__back2" :clickFunction="goBack">
+        <i class="ri-arrow-left-line"></i>
+      </ButtonComponent>
+      <ButtonComponent class="go__home" :clickFunction="goHome">
+        <i class="ri-home-2-fill"></i>
+      </ButtonComponent>
+    </div>
+    <ButtonComponent class="action__button" :clickFunction="unfollowPlaylist"
+      >Unfollow Playlist</ButtonComponent
+    >
     <div
       v-if="playlistTracks && playlistTracks.length"
       class="track__container"
@@ -48,7 +53,6 @@ export default {
           headers: { Authorization: "Bearer " + accessToken },
         })
         .then((response) => {
-          console.log(response.data);
           this.playlistTracks = response.data;
         })
         .catch((error) => {
@@ -89,6 +93,11 @@ export default {
           console.error(error);
         });
     },
+    goHome() {
+      this.$router.push({
+        name: "Home",
+      });
+    },
   },
   mounted() {
     const playlistId = this.$route.query.playlistId;
@@ -119,10 +128,22 @@ export default {
   margin: 2px;
 }
 
-.go__back {
+.go__back__container {
   position: absolute;
-  left: 1%;
-  top: 0;
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+}
+
+.go__home {
+  font-size: var(--h3-font-size);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.go__back2 {
+  font-size: var(--h3-font-size);
   font-weight: bold;
   cursor: pointer;
 }
@@ -138,7 +159,6 @@ export default {
   background: var(--primary-gradient);
   background-size: 200% 200%;
   background-position: 100% 100%;
-
 }
 </style>
   
