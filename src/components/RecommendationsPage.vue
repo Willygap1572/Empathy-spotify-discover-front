@@ -1,8 +1,10 @@
 <template>
   <div class="RecommendedTracks">
     <h1 class="shine">Recommended Tracks</h1>
-    <ButtonComponent class="go__back" :clickFunction="goBack"> X </ButtonComponent>
-    <ButtonComponent :clickFunction="openModal"
+    <ButtonComponent class="go__back" :clickFunction="goBack">
+      <i class="ri-arrow-left-line"></i>
+    </ButtonComponent>
+    <ButtonComponent class="action__button" :clickFunction="openModal"
       >Create Playlist</ButtonComponent
     >
     <ModalComponent
@@ -11,8 +13,12 @@
       @submit="createPlaylist"
     ></ModalComponent>
     <div class="track__container">
-      <div v-for="track in recommendedTracks" :key="track.id">
-        <TrackInfo :id="track" class="track"></TrackInfo>
+      <div v-for="track in recommendedTracks" :key="track">
+        <TrackInfo
+          :id="track"
+          @remove-track="removeTrack"
+          class="track"
+        ></TrackInfo>
       </div>
     </div>
   </div>
@@ -82,8 +88,17 @@ export default {
           console.error(error);
         });
     },
+    removeTrack(trackId) {
+      console.log(trackId);
+      this.recommendedTracks = this.recommendedTracks.filter(
+        (track) => track !== trackId
+      );
+      console.log(this.recommendedTracks);
+    },
     goBack() {
-      this.$router.go(-1);
+      this.$router.push({
+        name: "Home",
+      });
     },
   },
   mounted() {
@@ -99,6 +114,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
 .RecommendedTracks {
@@ -117,7 +133,8 @@ export default {
 }
 
 .go__back {
-  position: fixed;
+  font-size: var(--h3-font-size);
+  position: absolute;
   left: 1%;
   top: 0;
   font-weight: bold;

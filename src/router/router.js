@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomePage from '../components/HomePage.vue';
 import RecommendationsPage from '../components/RecommendationsPage.vue';
+import ManagePlaylist from '../components/ManagePlaylist.vue';
+import PlaylistDetail from '../components/PlaylistDetail.vue';
 
 Vue.use(VueRouter);
 
@@ -16,6 +18,16 @@ const routes = [
         name: 'Recommendations',
         component: RecommendationsPage,
     },
+    {
+        path: '/playlists',
+        name: 'Playlists',
+        component: ManagePlaylist,
+    },
+    {
+        path: '/playlistsdetail',
+        name: 'PlaylistDetail',
+        component: PlaylistDetail,
+    }
     // Otras rutas que puedas tener
 ];
 

@@ -15,6 +15,8 @@ export default {
   --h1-font-size: 4rem;
   --h2-font-size: 2rem;
   --h3-font-size: 1.5rem;
+  --normal-font-size: 1rem;
+
   --primary-color: #f21b6a;
   --secondary-color: #8c075e;
   --tertiary-color: #f2921d;
@@ -39,6 +41,18 @@ export default {
     var(--quaternary-color) 98%,
     var(--quinary-color) 100%
   );
+
+  @media screen and (max-width: 768px) {
+    --h1-font-size: 3rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.2rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    --h1-font-size: 2rem;
+    --h2-font-size: 1.2rem;
+    --h3-font-size: 1rem;
+  }
 }
 
 @keyframes shine {
@@ -59,7 +73,7 @@ export default {
 #app {
   padding: 0;
   margin: 0;
-  height: 100vh;
+  height: max(100vh, 100%);
   width: 100vw;
   text-align: center;
   background-color: var(--background-color);

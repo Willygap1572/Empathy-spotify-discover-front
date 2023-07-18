@@ -9,6 +9,7 @@ export default new Vuex.Store({
     accessToken: '',
     username: '',
     userphoto: '',
+    playlistIds: [],
   },
   mutations: {
     SET_RECOMMENDED_TRACKS(state, tracks) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     SET_USERPHOTO(state, userphoto) {
       state.userphoto = userphoto;
+    },
+    SET_PLAYLIST_IDS(state, ids) { 
+      state.playlistIds = ids;
     },
   },
   actions: {
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     setUserphoto({ commit }, userphoto) {
       commit('SET_USERPHOTO', userphoto);
     },
+    setPlaylistIds({ commit }, ids) {
+      commit('SET_PLAYLIST_IDS', ids);
+    },
   },
   getters: {
     getRecommendedTracks(state) {
@@ -50,6 +57,9 @@ export default new Vuex.Store({
     },
     getAccessToken(state) {
       return state.accessToken;
+    },
+    getPlaylistIds(state) { 
+      return state.playlistIds;
     }
   },
 });

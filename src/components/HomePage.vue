@@ -1,21 +1,39 @@
 <template>
   <div class="HomePage">
     <h1 class="shine title">Spotify Discover</h1>
-    <ButtonComponent v-if="accessToken" :clickFunction="logout">
-      Logout
+    <ButtonComponent
+      v-if="accessToken"
+      class="log__button"
+      :clickFunction="logout"
+    >
+    <i class="ri-logout-box-line"></i>
     </ButtonComponent>
-    <ButtonComponent v-if="!accessToken" :clickFunction="login">
+    <ButtonComponent
+      class="log__button"
+      v-if="!accessToken"
+      :clickFunction="login"
+    >
       Login
     </ButtonComponent>
-    <h3 v-if="username" class="welcome__title">
-      Welcome <span class="shine shine__name">{{ username }}</span>
-    </h3>
-    <div class="welcome__photo" id="welcome-photo">
-      <ProfilePhoto v-if="userphoto" :userphoto="userphoto" />
+    <div v-if="accessToken" class="container__user">
+      <h3 v-if="username" class="welcome__title">
+        Welcome <span class="shine shine__name">{{ username }}</span>
+      </h3>
+      <div class="user__information">
+        <div class="photo__container">
+          <div class="welcome__photo" id="welcome-photo">
+            <ProfilePhoto v-if="userphoto" :userphoto="userphoto" />
+          </div>
+        </div>
+
+        <RadarChart v-if="features" :features="features"></RadarChart>
+      </div>
     </div>
-    <RadarChart v-if="accessToken && features" :features="features"></RadarChart>
-    <ButtonComponent v-if="accessToken" :clickFunction="getRecommendedTracks">
+    <ButtonComponent class="action__button" v-if="accessToken" :clickFunction="getRecommendedTracks">
       Get Recommendation
+    </ButtonComponent>
+    <ButtonComponent class="action__button" v-if="accessToken" :clickFunction="getUserPlaylist">
+      Manage Playlist
     </ButtonComponent>
   </div>
 </template>
@@ -84,6 +102,12 @@ export default {
       localStorage.removeItem("userphoto");
     },
 
+    getUserPlaylist() {
+      router.push({
+        name: "Playlists",
+      });
+    },
+
     fetchChartData() {
       axios
         .get("http://localhost:8080/likelihood", {
@@ -100,10 +124,11 @@ export default {
           delete response.data.tempo;
           delete response.data.valence;
           delete response.data.loudness;
+          delete response.data.instrumentalness;
           this.features = response.data;
-
         })
         .catch((error) => {
+          this.logout();
           console.log(error);
         });
     },
@@ -142,12 +167,14 @@ export default {
           headers: { Authorization: "Bearer " + accessToken },
         })
         .then((response) => {
-          this.$store.dispatch("setUsername", response.data.display_name);
+          const name = response.data.uri.split(":")[2];
+          this.$store.dispatch("setUsername", name);
           this.$store.dispatch("setUserphoto", response.data.images[1].url);
-          this.username = response.data.display_name;
+          this.username = name;
           this.userphoto = response.data.images[1].url;
         })
         .catch((error) => {
+          this.logout();
           console.log(error);
         });
     },
@@ -184,7 +211,7 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px;
+  padding: 0px;
   color: var(--font-color);
 }
 
@@ -205,11 +232,93 @@ h1 {
 }
 
 .welcome__photo {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    width: 250px;
+    height: 250px;
+  }
+
+  @media screen and (max-width: 425px) {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.photo__container {
+  display: flex;
+  position: relative;
+  height: 500px;
+  width: 500px;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    height: 300px;
+    width: 300px;
+  }
+
+  @media screen and (max-width: 425px) {
+    height: 200px;
+    width: 200px;
+  }
+}
+
+.user__information {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.container__user {
+  padding-block: 20px;
+  width: 100%;
+  background-color: var(--background-color-2);
+
+  @media screen and (max-width: 768px) {
+    width: auto;
+  }
+    
+}
+
+.radarChart {
+  justify-content: center;
+  align-items: center;
+}
+
+.log__button {
+  font-size: var(--h3-font-size);
+  top: 3.2rem;
+  right: 2rem;
+  position: absolute;
+
+  @media screen and (max-width: 768px) {
+    top: 2.2rem;
+    right: 1rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+.legend__info {
+  position: absolute;
+}
+
+.action__button {
+  font-size: var(--normal-font-size);
 }
 </style>

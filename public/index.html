@@ -5,13 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      .footer {
+        position: absolute;
+        height: 4rem;
+        width: 100%;
+        background-color: var(--background-color-2);
+        padding-block: 1rem 2rem;
+    }
+    
+    .footer__container {
+
+        display: flex;
+        row-gap: 2rem;
+        align-items: center;
+        justify-content: space-evenly;
+        text-align: center;
+    }
+    
+    .footer__title {
+        font-size: var(--h2-font-size);
+        font-weight: 500;
+        margin-bottom: .25rem;
+    }
+    
+    .footer__title span {
+        color: var(--primary-color);
+    }
+    
+    .footer__copy {
+        font-size: var(--smaller-font-size);
+        margin-top: 2rem;
+    }
+    </style>
   </head>
-  <body style="margin:0">
+  <body style="margin:0; background-color:#363636; padding: 0;">
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+
+  <footer class="footer">
+    <div class="footer__container">
+        <div>
+            <h1 class="footer__title shine">
+              <span> Spotify Discover</span>
+            </h1>
+
+        </div>
+        <span class="footer__copy">
+            &#169; Copytight Willygap1572. All rights reserved
+        </span>
+    </div>
+</footer>
 </html>
+
+

@@ -30,7 +30,6 @@ button {
   border-radius: 50%;
   color: var(--font-color);
   cursor: pointer;
-  font-size: 16px;
   transition: all 0.2s ease-in-out;
   padding: 10px 20px;
   text-align: center;
