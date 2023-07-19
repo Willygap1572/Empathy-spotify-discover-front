@@ -51,7 +51,7 @@ export default {
           this.playlistIds = response.data;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     goBack() {

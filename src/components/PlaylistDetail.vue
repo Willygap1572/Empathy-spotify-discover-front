@@ -46,7 +46,6 @@ export default {
       this.showModal = true;
     },
     addTracksToPlaylist(playlistId) {
-      console.log(playlistId);
       const accessToken = localStorage.getItem("accessToken");
       axios
         .get("http://localhost:8080/playlist-details/" + playlistId, {
@@ -71,7 +70,6 @@ export default {
     unfollowPlaylist() {
       const playlistId = this.$route.query.playlistId;
 
-      console.log(playlistId);
       const accessToken = localStorage.getItem("accessToken");
       axios
         .delete("http://localhost:8080/unfollow-playlist/" + playlistId, {

@@ -41,7 +41,7 @@ export default {
           this.playlist.image = response.data.images[0].url;
           this.playlist.name = response.data.name;
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     },
   },
   mounted() {

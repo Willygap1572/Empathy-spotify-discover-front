@@ -57,9 +57,6 @@ export default {
             headers: { Authorization: "Bearer " + accessToken },
           }
         )
-        .then((response) => {
-          console.log(response);
-        })
         .catch((error) => {
           console.error(error);
         });
@@ -89,11 +86,9 @@ export default {
         });
     },
     removeTrack(trackId) {
-      console.log(trackId);
       this.recommendedTracks = this.recommendedTracks.filter(
         (track) => track !== trackId
       );
-      console.log(this.recommendedTracks);
     },
     goBack() {
       this.$router.push({

@@ -129,7 +129,7 @@ export default {
         })
         .catch((error) => {
           this.logout();
-          console.log(error);
+          console.error(error);
         });
     },
     getRecommendedTracks() {
@@ -146,7 +146,7 @@ export default {
           });
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     exchangeCodeForToken(code) {
@@ -158,7 +158,7 @@ export default {
           this.getUserInfo(response.data.access_token);
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     getUserInfo(accessToken) {
@@ -169,13 +169,18 @@ export default {
         .then((response) => {
           const name = response.data.uri.split(":")[2];
           this.$store.dispatch("setUsername", name);
-          this.$store.dispatch("setUserphoto", response.data.images[1].url);
+          try{
+            this.$store.dispatch("setUserphoto", response.data.images[1].url);
+          }
+          catch(error){
+            this.$store.dispatch("setUserphoto", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png");
+          }
           this.username = name;
-          this.userphoto = response.data.images[1].url;
+          this.userphoto = this.$store.getters.getUserphoto;
         })
         .catch((error) => {
           this.logout();
-          console.log(error);
+          console.error(error);
         });
     },
   },
