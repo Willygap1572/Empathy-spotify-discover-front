@@ -16,6 +16,7 @@
       <div v-for="track in recommendedTracks" :key="track">
         <TrackInfo
           :id="track"
+          :isOwner="true"
           @remove-track="removeTrack"
           class="track"
         ></TrackInfo>

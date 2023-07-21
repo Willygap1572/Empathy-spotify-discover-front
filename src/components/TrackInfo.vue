@@ -15,9 +15,9 @@
           }}</div>
         </div>
       </div>
-      <ButtonComponent class="remove__button" :clickFunction="removeTrack"
-          ><i class="ri-delete-bin-6-line trash"></i
-        ></ButtonComponent>
+      <ButtonComponent v-if="isOwner" class="remove__button" :clickFunction="removeTrack">
+        <i class="ri-delete-bin-6-line trash"></i>
+      </ButtonComponent>
     </div>
   </div>
 </template>
@@ -32,6 +32,10 @@ export default {
     id: {
       type: String,
       required: true,
+    },
+    isOwner: {
+      type: Boolean,
+      required: true
     },
   },
   data() {

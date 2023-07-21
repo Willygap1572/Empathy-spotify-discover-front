@@ -22,9 +22,17 @@ export default {
   --tertiary-color: #f2921d;
   --quaternary-color: #f2762e;
   --quinary-color: #f25e3d;
+
   --background-color: #363636;
   --background-color-2: #2b2b2b;
+
   --font-color: #f2f2f2;
+
+  --small-font-weigt: 300;
+  --normal-font-weight: 400;
+  --bold-font-weight: 700;
+  --bolder-font-weight: 900;
+
   --primary-gradient: linear-gradient(
     25deg,
     var(--quaternary-color) 0%,
@@ -46,12 +54,14 @@ export default {
     --h1-font-size: 3rem;
     --h2-font-size: 1.5rem;
     --h3-font-size: 1.2rem;
+    --normal-font-size: 0.8rem;
   }
 
   @media screen and (max-width: 480px) {
     --h1-font-size: 2rem;
     --h2-font-size: 1.2rem;
     --h3-font-size: 1rem;
+    --normal-font-size: 0.6rem;
   }
 }
 
